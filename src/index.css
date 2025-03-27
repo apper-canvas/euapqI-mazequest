@@ -89,6 +89,24 @@
     background-image: linear-gradient(to bottom right, rgba(251, 191, 36, 0.8), rgba(245, 158, 11, 0.9));
     box-shadow: 0 0 20px rgba(251, 191, 36, 0.5);
   }
+
+  .daily-challenge-card {
+    @apply bg-surface-100 dark:bg-surface-800 rounded-2xl p-6 shadow-lg transition-all duration-200;
+    background-image: 
+      linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
+  }
+
+  .daily-challenge-badge {
+    @apply flex items-center justify-center rounded-full text-white;
+    background-image: linear-gradient(135deg, #6366f1, #8b5cf6);
+    box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3);
+  }
+
+  .streak-counter {
+    @apply flex items-center justify-center text-white rounded-lg px-3 py-1 text-sm font-bold;
+    background-image: linear-gradient(to right, #f59e0b, #d97706);
+    box-shadow: 0 2px 6px rgba(245, 158, 11, 0.4);
+  }
 }
 
 @layer utilities {
@@ -139,6 +157,22 @@
     }
     100% {
       transform: scale(1);
+    }
+  }
+
+  .daily-pulse {
+    animation: daily-pulse 1.5s ease-in-out infinite;
+  }
+  
+  @keyframes daily-pulse {
+    0% {
+      box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.7);
+    }
+    70% {
+      box-shadow: 0 0 0 10px rgba(99, 102, 241, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(99, 102, 241, 0);
     }
   }
 }

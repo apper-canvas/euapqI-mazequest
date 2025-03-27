@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Trophy, Star, Zap, Heart } from 'lucide-react'
 import MainFeature from '../components/MainFeature'
+import DailyChallenge from '../components/DailyChallenge'
 
 const Home = () => {
   const [showIntro, setShowIntro] = useState(true)
@@ -77,7 +78,14 @@ const Home = () => {
             animate={{ opacity: 1 }}
             className="flex-1 w-full max-w-6xl mx-auto px-4 py-12"
           >
-            <MainFeature />
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              <div className="lg:col-span-2">
+                <MainFeature />
+              </div>
+              <div className="lg:col-span-1">
+                <DailyChallenge />
+              </div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
