@@ -205,6 +205,7 @@ const DailyChallengeMaze = ({ difficulty = 3, onComplete }) => {
   }
   
   const cellSize = Math.min(Math.floor(600 / mazeSize.width), 28);
+  const playerSize = cellSize * 0.7;
   
   return (
     <div className="bg-surface-200 dark:bg-surface-800 rounded-xl p-4 overflow-hidden">
@@ -256,10 +257,10 @@ const DailyChallengeMaze = ({ difficulty = 3, onComplete }) => {
           <motion.div 
             className="maze-player absolute"
             style={{ 
-              width: cellSize * 0.7, 
-              height: cellSize * 0.7,
-              top: playerPosition.y * cellSize + (cellSize * 0.15),
-              left: playerPosition.x * cellSize + (cellSize * 0.15)
+              width: playerSize, 
+              height: playerSize,
+              top: playerPosition.y * cellSize + (cellSize - playerSize) / 2,
+              left: playerPosition.x * cellSize + (cellSize - playerSize) / 2
             }}
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
