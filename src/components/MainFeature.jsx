@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { RefreshCw, ChevronLeft, ChevronRight, ChevronUp, ChevronDown, Award, Star, Home } from 'lucide-react'
+import CongratulationsMessage from './CongratulationsMessage'
 
 // Maze generation algorithm (simplified for MVP)
 const generateMaze = (width, height, difficulty) => {
@@ -172,6 +173,11 @@ const MainFeature = () => {
     }
     
     movePlayer(newX, newY);
+  };
+
+  const handleChangeDifficulty = () => {
+    setDifficulty(difficulty === 'easy' ? 'medium' : difficulty === 'medium' ? 'hard' : 'easy');
+    setTimeout(initGame, 100);
   };
   
   if (!maze) {
@@ -352,57 +358,17 @@ const MainFeature = () => {
         </div>
       </div>
       
-      {/* Win modal */}
+      {/* Win modal with enhanced congratulations message */}
       <AnimatePresence>
         {gameState === 'won' && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 px-4"
-          >
-            <motion.div
-              initial={{ scale: 0.8, y: 20 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.8, y: 20 }}
-              className="bg-surface-50 dark:bg-surface-800 rounded-2xl p-8 max-w-md w-full shadow-lg"
-            >
-              <div className="text-center">
-                <div className="w-20 h-20 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Trophy className="w-10 h-10 text-white" />
-                </div>
-                
-                <h2 className="text-2xl font-bold mb-2">Congratulations!</h2>
-                <p className="text-surface-600 dark:text-surface-400 mb-4">
-                  You completed the maze in {moves} moves and collected {collectedItems.length} out of {maze.collectibles.length} stars!
-                </p>
-                
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={initGame}
-                    className="btn btn-primary"
-                  >
-                    <RefreshCw className="mr-2 h-5 w-5" />
-                    Play Again
-                  </motion.button>
-                  
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => {
-                      setDifficulty(difficulty === 'easy' ? 'medium' : difficulty === 'medium' ? 'hard' : 'easy');
-                      setTimeout(initGame, 100);
-                    }}
-                    className="btn bg-surface-200 dark:bg-surface-700 hover:bg-surface-300 dark:hover:bg-surface-600"
-                  >
-                    Try {difficulty === 'easy' ? 'Medium' : difficulty === 'medium' ? 'Hard' : 'Easy'} Level
-                  </motion.button>
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
+          <CongratulationsMessage 
+            moves={moves}
+            collectedItems={collectedItems.length}
+            totalCollectibles={maze.collectibles.length}
+            onPlayAgain={initGame}
+            onChangeDifficulty={handleChangeDifficulty}
+            currentDifficulty={difficulty}
+          />
         )}
       </AnimatePresence>
     </div>

@@ -83,6 +83,12 @@
   .difficulty-btn-active {
     @apply bg-primary text-white shadow-lg;
   }
+  
+  .celebration-badge {
+    @apply flex items-center justify-center rounded-full shadow-lg transform transition-all;
+    background-image: linear-gradient(to bottom right, rgba(251, 191, 36, 0.8), rgba(245, 158, 11, 0.9));
+    box-shadow: 0 0 20px rgba(251, 191, 36, 0.5);
+  }
 }
 
 @layer utilities {
@@ -100,5 +106,39 @@
   
   .text-glow {
     text-shadow: 0 0 10px rgba(99, 102, 241, 0.7);
+  }
+  
+  .confetti-animation {
+    animation: confetti-fall 2.5s ease-out forwards;
+  }
+  
+  @keyframes confetti-fall {
+    0% {
+      transform: translateY(-100px);
+      opacity: 1;
+    }
+    75% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(500px);
+      opacity: 0;
+    }
+  }
+  
+  .victory-pulse {
+    animation: victory-pulse 2s infinite;
+  }
+  
+  @keyframes victory-pulse {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.05);
+    }
+    100% {
+      transform: scale(1);
+    }
   }
 }
