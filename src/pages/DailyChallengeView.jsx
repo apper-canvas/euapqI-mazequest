@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
 import { Calendar, Award, Clock, ArrowLeft, Star, Trophy, Zap } from 'lucide-react'
 import { useDailyChallenge } from '../context/DailyChallengeContext'
+import DailyChallengeMaze from '../components/DailyChallengeMaze'
 
 const DailyChallengeView = () => {
   const navigate = useNavigate()
@@ -11,6 +12,9 @@ const DailyChallengeView = () => {
   const [timeElapsed, setTimeElapsed] = useState(0)
   const [isPlaying, setIsPlaying] = useState(false)
   const [hasStarted, setHasStarted] = useState(false)
+  const [collectedItems, setCollectedItems] = useState(0)
+  const [totalCollectibles, setTotalCollectibles] = useState(0)
+  const [playerMoves, setPlayerMoves] = useState(0)
 
   useEffect(() => {
     loadChallenge()
@@ -37,38 +41,39 @@ const DailyChallengeView = () => {
     setIsPlaying(true)
   }
 
-  const handleComplete = () => {
+  const handleComplete = (moves, collected, total) => {
     setIsPlaying(false)
+    setPlayerMoves(moves)
+    setCollectedItems(collected)
+    setTotalCollectibles(total)
+    
     if (!isCompleted) {
       completeChallenge()
     }
     setShowCelebration(true)
   }
 
-  // Placeholder for actual maze gameplay
   const renderMazeGame = () => (
-    <div className="bg-surface-200 dark:bg-surface-800 rounded-xl p-4 h-80 flex items-center justify-center">
+    <div>
       {!hasStarted ? (
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          onClick={handleStart}
-          className="btn btn-primary"
-        >
-          Start Challenge
-        </motion.button>
-      ) : (
-        <div className="text-center">
-          <p className="mb-6">Maze gameplay would be here</p>
+        <div className="bg-surface-200 dark:bg-surface-800 rounded-xl p-8 flex flex-col items-center justify-center h-80">
+          <p className="mb-6 text-center text-surface-600 dark:text-surface-300">
+            Ready to test your maze-solving skills? Today's challenge awaits!
+          </p>
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            onClick={handleComplete}
-            className="btn btn-accent"
+            onClick={handleStart}
+            className="btn btn-primary"
           >
-            Complete Challenge
+            Start Challenge
           </motion.button>
         </div>
+      ) : (
+        <DailyChallengeMaze 
+          difficulty={todayChallenge?.difficulty || 3} 
+          onComplete={handleComplete}
+        />
       )}
     </div>
   )
@@ -88,14 +93,31 @@ const DailyChallengeView = () => {
         You've successfully completed today's challenge!
       </p>
       
-      <div className="grid grid-cols-2 gap-4 mb-6">
+      <div className="grid grid-cols-3 gap-4 mb-6">
         <div className="bg-surface-200 dark:bg-surface-700 p-3 rounded-lg">
           <p className="text-xs text-surface-500 dark:text-surface-400">Time</p>
           <p className="text-lg font-bold">{formatTime(timeElapsed)}</p>
         </div>
         <div className="bg-surface-200 dark:bg-surface-700 p-3 rounded-lg">
+          <p className="text-xs text-surface-500 dark:text-surface-400">Moves</p>
+          <p className="text-lg font-bold">{playerMoves}</p>
+        </div>
+        <div className="bg-surface-200 dark:bg-surface-700 p-3 rounded-lg">
           <p className="text-xs text-surface-500 dark:text-surface-400">Points</p>
-          <p className="text-lg font-bold">{todayChallenge?.rewardPoints || 100}</p>
+          <p className="text-lg font-bold">
+            {todayChallenge?.rewardPoints || 100}
+            {collectedItems === totalCollectibles && totalCollectibles > 0 && (
+              <span className="text-xs text-accent ml-1">+{totalCollectibles * 10}</span>
+            )}
+          </p>
+        </div>
+      </div>
+      
+      <div className="bg-surface-200 dark:bg-surface-700 p-3 rounded-lg mb-6">
+        <p className="text-xs text-surface-500 dark:text-surface-400 mb-1">Collectibles</p>
+        <div className="flex items-center justify-center">
+          <Star className="w-5 h-5 text-accent mr-2" />
+          <p className="text-lg font-bold">{collectedItems}/{totalCollectibles}</p>
         </div>
       </div>
       
