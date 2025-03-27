@@ -1,0 +1,89 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-surface-50 dark:bg-surface-900;
+    background-image: 
+      radial-gradient(circle at 25px 25px, rgba(99, 102, 241, 0.15) 2%, transparent 0%),
+      radial-gradient(circle at 75px 75px, rgba(236, 72, 153, 0.15) 2%, transparent 0%);
+    background-size: 100px 100px;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading font-bold;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center px-6 py-3 rounded-xl font-medium transition-all duration-200 transform;
+  }
+  
+  .btn-primary {
+    @apply bg-primary text-white hover:bg-primary-dark active:scale-95 shadow-lg hover:shadow-xl;
+  }
+  
+  .btn-secondary {
+    @apply bg-secondary text-white hover:bg-secondary-dark active:scale-95 shadow-lg hover:shadow-xl;
+  }
+  
+  .btn-accent {
+    @apply bg-accent text-surface-800 hover:bg-amber-500 active:scale-95 shadow-lg hover:shadow-xl;
+  }
+  
+  .maze-cell {
+    @apply border border-surface-300 dark:border-surface-700 transition-colors duration-200;
+  }
+  
+  .maze-wall {
+    @apply bg-maze-wall;
+  }
+  
+  .maze-path {
+    @apply bg-maze-path dark:bg-surface-800;
+  }
+  
+  .maze-start {
+    @apply bg-maze-start;
+  }
+  
+  .maze-end {
+    @apply bg-maze-end;
+  }
+  
+  .maze-collectible {
+    @apply bg-maze-collectible;
+  }
+  
+  .maze-player {
+    @apply bg-primary rounded-full shadow-lg;
+  }
+  
+  .difficulty-btn {
+    @apply px-4 py-2 rounded-lg font-medium transition-all duration-200;
+  }
+  
+  .difficulty-btn-active {
+    @apply bg-primary text-white shadow-lg;
+  }
+}
+
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .text-shadow {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  }
+  
+  .text-glow {
+    text-shadow: 0 0 10px rgba(99, 102, 241, 0.7);
+  }
+}
