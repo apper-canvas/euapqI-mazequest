@@ -6,8 +6,8 @@
   body {
     @apply bg-surface-50 dark:bg-surface-900;
     background-image: 
-      radial-gradient(circle at 25px 25px, rgba(99, 102, 241, 0.15) 2%, transparent 0%),
-      radial-gradient(circle at 75px 75px, rgba(236, 72, 153, 0.15) 2%, transparent 0%);
+      radial-gradient(circle at 25px 25px, rgba(34, 197, 94, 0.15) 2%, transparent 0%),
+      radial-gradient(circle at 75px 75px, rgba(139, 92, 246, 0.15) 2%, transparent 0%);
     background-size: 100px 100px;
   }
   
@@ -34,31 +34,46 @@
   }
   
   .maze-cell {
-    @apply border border-surface-300 dark:border-surface-700 transition-colors duration-200;
+    @apply transition-colors duration-200;
   }
   
   .maze-wall {
-    @apply bg-maze-wall;
+    @apply bg-green-700 dark:bg-green-800 rounded-sm;
+    background-image: linear-gradient(to bottom right, rgba(34, 197, 94, 0.7), rgba(20, 83, 45, 0.8));
+    box-shadow: inset 2px 2px 4px rgba(255, 255, 255, 0.2), inset -2px -2px 4px rgba(0, 0, 0, 0.2);
   }
   
   .maze-path {
-    @apply bg-maze-path dark:bg-surface-800;
+    @apply bg-lime-100 dark:bg-lime-900;
+    background-image: 
+      repeating-linear-gradient(45deg, rgba(132, 204, 22, 0.1), rgba(132, 204, 22, 0.1) 10px, 
+      rgba(101, 163, 13, 0.1) 10px, rgba(101, 163, 13, 0.1) 20px);
   }
   
   .maze-start {
-    @apply bg-maze-start;
+    @apply bg-amber-100 dark:bg-amber-900;
+    background-image: 
+      radial-gradient(circle at center, rgba(251, 191, 36, 0.6) 30%, rgba(251, 191, 36, 0.2) 70%);
   }
   
   .maze-end {
-    @apply bg-maze-end;
+    @apply bg-red-100 dark:bg-red-900;
+    background-image: 
+      repeating-radial-gradient(circle at center, rgba(220, 38, 38, 0.4) 0, rgba(220, 38, 38, 0.2) 10px, 
+      rgba(220, 38, 38, 0.4) 10px, rgba(220, 38, 38, 0.2) 20px);
   }
   
   .maze-collectible {
-    @apply bg-maze-collectible;
+    @apply bg-purple-100 dark:bg-purple-900;
+    background-image: 
+      radial-gradient(circle at center, rgba(139, 92, 246, 0.8) 30%, rgba(139, 92, 246, 0.2) 70%);
   }
   
   .maze-player {
     @apply bg-primary rounded-full shadow-lg;
+    background-image: 
+      radial-gradient(circle at center, rgba(99, 102, 241, 0.9) 30%, rgba(79, 70, 229, 1) 70%);
+    box-shadow: 0 0 10px rgba(99, 102, 241, 0.7);
   }
   
   .difficulty-btn {
